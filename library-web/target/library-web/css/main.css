@@ -1,0 +1,9 @@
+ul.actions {
+	list-style : none;
+	padding-left: 10px;			
+}
+
+ul.actions>li {
+	float: left;	
+	padding-right: 5px;	
+}

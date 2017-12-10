@@ -1,0 +1,6 @@
+<Context>
+	<Resource name="coreContext" auth="Container"
+		type="gz.nozing.library.core.command.common.CoreContextImpl" 
+		factory="org.apache.naming.factory.BeanFactory"
+		mongoDBHost="mongodb://localhost" />
+</Context>

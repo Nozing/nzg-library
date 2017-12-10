@@ -1,0 +1,19 @@
+Para la librería de mapeo java-mongodb, tenemos probados estos casos:
+
+Tipos simples (UnmarshallSimpleTypeTest)
+- String 		OK
+- Long			OK
+- Double		OK
+- Integer		OK
+- Short			OK
+- Number		
+- BigInteger
+
+Tipos compuestos (UnmarshallComplexTypeTest)
+- Set			OK
+	+ Con String y Date
+- List
+- Collection
+- Map
+
+

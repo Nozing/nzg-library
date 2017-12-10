@@ -1,0 +1,130 @@
+<html>
+<head>
+</head>
+<body>
+
+<div class="layout">
+	<div class="header">
+		<div class="title">
+			Nombre del proyecto
+		</div>
+		<div class="navigation">
+			<ul>
+				<li class="active">
+					Libros
+				</li>
+				<li>
+					Ubicaciones	
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="content">
+		
+		<div class="form">
+			<p>
+				Formulario de búsqueda:
+			</p>
+			<form class="searchForm">
+				<ul>
+					<li>
+						<label for="name">
+							Nombre:
+						</label>
+						<input type="text" name="name"/>
+					</li>
+					<li>
+						<label for="author">
+							Autor:
+						</label>
+						<input type="text" name="author"/>
+					</li>
+					<li>
+						<label for="location">
+							Localización:
+						</label>
+						<input type="text" name="location"/>
+					</li>
+					<li>
+						<label for="shelving">
+							Estantería:
+						</label>
+						<input type="text" name="shelving"/>
+					</li>
+					<li>
+						<label for="shelf">
+							Estánte:
+						</label>
+						<input type="text" name="shelf"/>
+					</li>
+				</ul>
+				
+				<div class="actions">
+					<ul>
+						<li>
+							<button name="searchButton">Buscar</button>
+						</li>
+					</ul>
+				</div>
+			</form>
+		</div>
+		
+		<div class="result">
+			<table>
+				<thead>
+					<th>Nombre</th>
+					<th>Autores</th>					
+					<th>Ubicación</th>
+					<th>Acciones</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Nombre libro
+						</td>
+						<td>
+							<ul>
+								<li>Autor1</li>
+								<li>Autor2</li>
+							</ul>
+						</td>
+						<td>CodUbicacion1</td>
+						<td>
+							<ul>
+								<li><a>Modificar</a></li>
+								<li><a>Borrar</a></li>
+							</ul>
+						</td>
+					<tr>
+				</tbody>
+					
+				<tfoot>
+					<div class="total">
+						Se muestra 1 elemento de 10 
+					</div>
+					<div class="pagination">
+						Mostrar 10 elementos
+						<ul>
+							<li>&lt;</li>
+							<li class="actual">1</li>
+							<li>2</li>
+							<li>...</li>
+							<li>5</li>
+							<li>6</li>
+							<li>></li>
+						</ul>
+					</div>
+				</tfoot>
+			</table>
+			
+		</div>
+		<div class="actions">
+			<ul>
+				<li>
+					<button>Nuevo</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

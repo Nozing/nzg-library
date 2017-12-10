@@ -1,0 +1,145 @@
+General
+- [-] [-] Gestión de excepciones no controladas en la web
+- [-] [-] Gestión de errores en llamadas ajax
+- [2017/06/10] [-] Hacer tag para la paginación de las JSP 
+- [2017/06/10] [-] Hacer formulario genérico para validación, botón "Limpiar", etc...
+- [2017/09/10] [-] Recuperar el locale en las llamadas Ajax para internacionalización
+* [-] [2017/05/27] Página de inicio en /index.htm
+* [-] [2017/05/27] Añadir favicon
+* [2017/08/10] [2017/09/10] Loading mientras se hacen llamadas al servidor
+
+Gráfico
+- [2017/10/15] [-] Fijar el footer al final de la pantalla (que sea flotante)y hacerlo bonito
+- 
+* [2017/06/10] [2017/10/15] Incluir iconos para las operaciones
+	- Hemos usado los iconos de bootstrap (glyphicon) pero hemos tenido que modificar el fichero 'css' de bootstrap para hacer referencia a la carpeta correcta para que coja las fuentes
+
+Búsqueda de libros:
+- [-] [-] Añadir el link del autor cuando tengamos la búsqueda por autor implementada
+* [-] [2017/08/10] No funciona el link de borrado (lo tenemos desactivado para pruebas con Ajax)
+* [-] [2017/06/09] No funciona la búsqueda sólo por autor
+* [-] [2017/06/09] Cambiar metodo de la llamada Ajax que borra el autor 
+  
+Alta de libros
+- [2017/10/15] [] Incluir campos categoría y ubicación
+- [-] [-] Incluir validación de formulario (cliente y servidor)
+	Al menos el título 
+- [-] [-] Controlar que no se añada un autor vacío al crear
+- [-] [-] No permitir añadir un autor en el formulario si el primero está vacío
+- [2017/09/04] [-] Al insertar un libro, debería hacer un redirect a la página 
+		de detalle de libro. Ahora mismo está haciendo un redirección a la 
+		vista y no cambia la URL
+
+Ver detalle de libros
+- [-] [-] Añadir botón de "Volver"
+- [2017/09/12] [-] Permitir añadir autores (ojo con la lógica de si existen o no, como en el alta)
+- [2017/07/07] [-] Añadir pregunta "Estás seguro" antes de borrar
+* [-] [2017/10/41] El link delete de autor no funciona
+* [2017/09/09] [2017/10/14] Botón de update no funciona
+* [-] [2017/09/10] Botón de borrar no funciona
+* [-] [2017/07/07] Eliminar link update del autor
+
+Próximos pasos:
+- SpringMVC
+	[-] Validación de formularios
+* [-] [2015/10/15] Internacionalización de la aplicación
+* Carga masiva de en MongoDB (generar BSON)
+
+
+CORE:
++ Los test están listos
+
+DAO:
+
++ Está implementado el mapeador. Faltan unos retoques pero básicamente funciona
+- El método unmrshall de MongoDBUtil no funciona con el tipo "Document" --> Esto
+  provoca que tengamos que usar las interfaces "Block" para mapear los DO
++ Los test básicos están pero habría que mejorarlos para evitar sustos (sobre 
+  todo los de los DAO)
+- Falta implementar la paginación
+
+MODELO:
+
+La aplicación maneja básicamente dos objetos: libros (BookDO) y ubicaciones 
+(LocationDO). Ambos objetos no tienen ninguna restricción entre ambos.
+
+Una localización se compone de una descripción y opcionalmente de un conjunto 
+de estanterías. Cada estantería puede contener un conjunto de estantes. Cada 
+uno de estos 'objetos' tendrá una código que será único en sú ámbito. Por ejemplo:
+
+Ubic01 -> Est01 -> Estante 01
+Ubic01 -> Est01 -> Estante 02
+Ubic01 -> Est02 -> Estante 01
+
+Conoceremos la ubicación de un libro por medio de los códigos que guarda de la 
+ubicación, la estantería y el estante.
+
+BookDO: contiene la información de un libro
+- id: identificador generado por la BBDD (clave primaria) [NOT NULL]
+- title: título del libro [NOT NULL]
+- authors: conjunto de autores [NOT NULL]
+- note: contiene anotaciones sobre el libro
+- creationDate: fecha de alta del libro en el sistema [NOT NULL]
+- lastModificationDate: fecha de la última modificación
+- locationCode: código de la ubicación donde se encuentra
+- shelvingCode: código que identifica la estantería donde se dentro de la ubicación
+- shelfCode: código que identifica el estante dentro de la estantería
+
+Ejemplo JSON:
+{
+	"title": "Titulo",
+	"authors": [
+		"Author1",
+		"Author2"
+	],
+	"note": "Some note about the content",
+	"creationDate": {
+		"$date": "2014-04-04T20:11:45.316Z"
+	},
+	"lastModificationDate": {
+		"$date": "2014-04-04T20:11:45.316Z"
+	},
+	"locationCode": "LOC01",
+	"shelvingCode": "Shelv01",
+	"shelfCode": "Shelf-01"
+}
+
+LocationDO
+- id: identificador generado por la BBDD (clave primaria) [NOT NULL]
+- code: cadena que contiene un código que identifica a la localización (clave 
+        candidata) [NOT NULL]
+- description: cadena con la descripción de la ubicación
+- shelving: conjunto de estanterías que hay en la ubicación (ver ShelvingDO)
+
+Ejemplo JSON:
+{
+	"code": "LOC01",
+	"description": "Object location 01",
+	"shelving": [ ... ]
+}
+	
+ShelvingDO
+- code: cadena que contiene un código que identifica a la estantería dentro de 
+	    una ubicación. Será único dentro de su ubicación [NOT NULL]
+- description: contiene la descripcion de la estantería
+- shelfs: conjunto de estantes que tiene la estantería (ver ShelfDO)
+
+Ejemplo JSON:
+{
+	"code": "SHELVING01",
+	"description": "Object shelving 01",
+	"shelf": [ ... ]
+}
+	
+ShelfDO
+- code: cadena que contiene un código que identifica el estante dentro de la
+	    estantería. Será único dentro de la estantería [NOT NULL]
+- description: contiene una descripción del estante
+
+Ejemplo JSON:
+{
+	"code": "SHELF01",
+	"description": "Object shelf 01"
+}
+
+

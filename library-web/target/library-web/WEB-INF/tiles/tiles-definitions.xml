@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="defaultTemplate" template="/WEB-INF/tiles/template/defaultTemplate.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/tiles/template/defaultHeader.jsp" />
+		<put-attribute name="breadcrums" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/tiles/template/defaultFooter.jsp" />
+	</definition>
+	
+	<definition name="book.searchForm" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/book/searchForm.jsp" />
+	</definition>
+	
+	<definition name="author.searchForm" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/author/searchForm.jsp" />
+	</definition>
+	
+	<definition name="book.insertForm" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/book/creationForm.jsp" />
+	</definition>
+	
+	<definition name="book.showDetails" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/book/bookDetails.jsp" />
+	</definition>
+
+	<definition name="author.createForm" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/author/createForm.jsp" />
+	</definition>
+	
+	<definition name="index" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
+	</definition>
+	
+	<definition name="about" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/about.jsp" />
+	</definition>
+	
+	<definition name="jsonResponseTest" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/pages/jsonResponseTest.jsp" />
+	</definition>
+</tiles-definitions>
