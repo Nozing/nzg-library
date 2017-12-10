@@ -1,0 +1,6 @@
+.project
+.settings/
+library-core/.settings/
+library-core/.classpath
+library-core/.project
+library-core/target
