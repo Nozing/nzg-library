@@ -4,3 +4,11 @@ library-core/.settings/
 library-core/.classpath
 library-core/.project
 library-core/target
+library-mongod/.classpath
+library-mongod/.project
+library-mongod/.settings/
+library-mongod/target
+library-web/.classpath
+library-web/.project
+library-web/.settings/
+library-web/target
