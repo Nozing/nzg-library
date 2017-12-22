@@ -1,0 +1,69 @@
+AUTORES:
+
+1.- Cargar datos del fichero json
+
+#databaseName : library-test-load
+#collection : authors
+#pathToJson : c:\Users\nozing\Desktop\library\authors.v2.json
+
+	mongoimport.exe --db #databaseName --collection #collection #pathToJson
+
+2.- Una vez cargados los datos, añadimos la fecha de creación con el siguiente script
+
+	db.authors.find().forEach(function(el){
+
+		el.creationDate = new Date(el._id.getTimestamp());
+		
+		el.alternateKey = el.name;
+		if (el.surname) {
+			el.alternateKey = el.alternateKey + " " + el.surname;
+		}
+	
+		db.authors.save(el)
+	});
+	
+LIBROS:
+
+1.- Cargar datos del fichero json
+
+#databaseName : library-test-load
+#collection : books
+#pathToJson : c:\Users\nozing\Desktop\library\books.v3.json
+
+	mongoimport.exe --db #databaseName --collection #collection #pathToJson
+
+2.- Una vez cargados los datos, añadimos la fecha de creación con el siguiente script
+
+	db.books.find().forEach(function(book){
+	
+        book.creationDate = new Date(book._id.getTimestamp());
+        book.authors = [];
+        book.authorsAsArray.forEach(function(auth) {
+        
+                cursor = db.authors.find({ alternateKey : auth });
+                
+                if (cursor.hasNext()) {
+                        
+                        authObj = cursor.next();
+                        
+                        if (authObj) {
+                                book.authors.push({
+                                        authorId : authObj._id.str,
+                                        name : authObj.name,
+                                        surname : authObj.surname
+                                });
+                        } else {
+                                
+                                book.authors.push({ name : auth });    
+                        }
+                }
+        });
+        
+        db.books.save(book);
+	});
+
+3.- Eliminamos el atributo 'alternateKey' de la colección 'authors'
+db.authors.update({}, {$unset: {alternateKey:1}} , {multi: true});
+
+4.- Eliminamos el atributo 'authors' de la colección 'books':
+db.books.update({}, {$unset: {authorsAsArray:1}}, {multi: true});
